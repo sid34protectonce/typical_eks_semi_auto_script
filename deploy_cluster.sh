@@ -15,6 +15,23 @@ get_env_vars(){
     fi
 }
 
+
 deploy_cluster(){
-    eksctl create cluster --name=${cluster_name} --nodes=${nodes_number} --region=${region}
+    echo "Changing the yaml"
+    sed -e "s/basic-cluster/$cluster_name/g" \
+    -e "s/eu-north-1/$region/g" \
+    -e "s/desiredCapacity: 2/desiredCapacity: $nodes_number/g" \
+    cluster.yaml > cluster-updated.yaml
+
+
+    eksctl create -f cluster.yaml
+
+    echo "Cluster deployed reverting the yaml"
+    sed -e "s/$cluster_name/basic-cluster/g" \
+    -e "s/$region/eu-north-1/g" \
+    -e "s/desiredCapacity: $nodes_number/desiredCapacity: 2/g" \
+    cluster.yaml > cluster-updated.yaml
 }
+
+get_env_vars
+deploy_cluster
