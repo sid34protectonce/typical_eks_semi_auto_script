@@ -8,9 +8,7 @@ metadata:
 nodeGroups:
   - name: ng-1
     instanceType: m5.large
-    desiredCapacity: 5
-    volumeSize: 40
+    desiredCapacity: 2
+    volumeSize: 60
     ssh:
       allow: true
-    labels:
-      special-node: "true"

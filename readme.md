@@ -13,13 +13,13 @@ Note: Make sure you have aws cli setup on device properly
 ### To deploy cluster run
 
 ```sh
-./deploy_cluster.sh region=ap-northeast-2 cluster_name=dev nodes_number=3
+region=ap-northeast-2 cluster_name=dev nodes_number=3 ./deploy_cluster.sh
 ```
 
 ## Attach label and deploy in specific node
 
 ```sh
-./attach_label_to_node node_name=ip-192.142.78.43 node_label=sp-1
+node_name=ip-192.142.78.43 node_label=sp-1 ./attach_label_to_node
 ```
 
 Note: Make sure to add nodeselector to spec in deployments see the below example

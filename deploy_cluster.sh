@@ -21,16 +21,21 @@ deploy_cluster(){
     sed -e "s/basic-cluster/$cluster_name/g" \
     -e "s/eu-north-1/$region/g" \
     -e "s/desiredCapacity: 2/desiredCapacity: $nodes_number/g" \
-    cluster.yaml > cluster-updated.yaml
+    cluster-new.yaml > cluster-updated.yaml
 
+    eksctl create cluster -f cluster-updated.yaml
 
-    eksctl create -f cluster.yaml
+    # Check if the command failed
+    if [ $? -ne 0 ]; then
+        echo "Create command failed with exit code $?"
+        exit 1
+    fi
 
-    echo "Cluster deployed reverting the yaml"
+    echo "Cluster deployed, reverting the yaml"
     sed -e "s/$cluster_name/basic-cluster/g" \
     -e "s/$region/eu-north-1/g" \
     -e "s/desiredCapacity: $nodes_number/desiredCapacity: 2/g" \
-    cluster.yaml > cluster-updated.yaml
+    cluster-updated.yaml > cluster-new.yaml
 }
 
 get_env_vars
