@@ -63,3 +63,10 @@ Then deploy
 ```sh
 kubectl apply -f mongo.yaml
 ```
+
+## How to deploy prometheus?
+
+```
+cd prometheus
+./run.sh
+```
