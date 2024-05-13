@@ -64,6 +64,8 @@ Then deploy
 kubectl apply -f mongo.yaml
 ```
 
+It will be added in your preferred node
+
 ## How to deploy prometheus?
 
 ```
