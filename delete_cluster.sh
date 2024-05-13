@@ -1,7 +1,18 @@
 source ./deploy_cluster.sh
 
-get_env_vars
+get_env_vars_new(){
+        if [[ -z "${region}" ]]; then
+        echo "region not found, thus exiting\n"
+        exit 1
+    fi
 
+    if [[ -z "${cluster_name}" ]]; then
+        echo "cluster_name not found, thus exiting\n"
+        exit 1
+    fi
+}
+
+get_env_vars_new()
 delete_cluster(){
     eksctl delete cluster --name=${cluster_name} --region=${region}
 
